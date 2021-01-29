@@ -1,0 +1,62 @@
+punct = [
+    ["=", "Eq"],
+
+    ["==", "EqEq"],
+    ["!=", "NotEq"],
+
+    ["(", "LParen"],
+    [")", "RParen"],
+    ["{", "LBrace"],
+    ["}", "RBrace"],
+    ["[", "LBracket"],
+    ["]", "RBracket"],
+
+    [",", "Comma"],
+    [".", "Dot"],
+    [";", "Semicolon"],
+
+    ["!", "Bang"],
+
+    # operators
+    ["+", "Plus"],
+    ["-", "Minus"],
+    ["*", "Asterisk"],
+    ["/", "Slash"],
+
+    ["<", "Lt"],
+    [">", "Gt"],
+    ["<=", "LtEq"],
+    [">=", "GtEq"],
+]
+
+keywords = [
+    "fn",
+    "let",
+    "true",
+    "false",
+    "if",
+    "else",
+    "return"
+]
+
+literals = [
+    "Number",
+    "String",
+]
+
+tokens = [
+    "Error",
+    "Ident",
+    "Whitespace",
+    "Comment",
+    "Newline",
+]
+
+nodes = [
+    "LetStmt",
+    "IfStmt",
+    "ReturnStmt",
+    "CallExpr",
+    "PrefixExpr",
+    "BinExpr",
+]
