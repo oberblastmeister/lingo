@@ -1,6 +1,4 @@
 punct = [
-    ["=", "Eq"],
-
     ["==", "EqEq"],
     ["!=", "NotEq"],
 
@@ -11,22 +9,40 @@ punct = [
     ["[", "LBracket"],
     ["]", "RBracket"],
 
+    [":", "Colon"],
+    ["=", "Eq"],
+    [":=", "Walrus"],
+
     [",", "Comma"],
     [".", "Dot"],
     [";", "Semicolon"],
-
-    ["!", "Bang"],
 
     # operators
     ["+", "Plus"],
     ["-", "Minus"],
     ["*", "Asterisk"],
     ["/", "Slash"],
+    ["%", "Modulo"],
+    ["^", "Caret"],
+
+    # bitwise
+    ["<<", "ShiftLeft"],
+    [">>", "ShiftRight"],
+    ["~", "Tilde"],
+    ["&", "BitAnd"],
+    ["|", "BitOr"],
 
     ["<", "Lt"],
     [">", "Gt"],
     ["<=", "LtEq"],
     [">=", "GtEq"],
+
+    # logical
+    ["&&", "LogicalAnd"],
+    ["||", "LogicalOr"],
+    ["!", "Bang"],
+
+    ["unknown", "Unknown"],
 ]
 
 keywords = [

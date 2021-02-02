@@ -17,7 +17,7 @@ impl From<SyntaxKind> for u16 {
 }
 
 impl SyntaxKind {
-    // pub fn is_trivia(self) -> bool {
-    //     matches!(self, SyntaxKind::Whitespace | SyntaxKind::Comment)
-    // }
+    pub fn is_trivia(self) -> bool {
+        matches!(self, SyntaxKind::Whitespace | SyntaxKind::Comment)
+    }
 }

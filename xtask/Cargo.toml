@@ -13,4 +13,5 @@ quote = "1.0.8"
 serde = { version = "1.0.123", features = ["derive"] }
 syn = "1.0.60"
 toml = "0.5.8"
+ungrammar = "1.10.0"
 xshell = "0.1.8"

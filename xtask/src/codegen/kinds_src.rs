@@ -4,6 +4,7 @@ use eyre::Result;
 use proc_macro2::{Punct, Spacing};
 use quote::{format_ident, quote};
 use serde::{Deserialize, Serialize};
+use ungrammar::Grammar;
 use xshell::cmd;
 
 use crate::utils;
@@ -64,9 +65,17 @@ impl KindsSrc {
             .map(|literal| format_ident!("{}Lit", to_camel_case(literal)))
             .collect();
 
+        let tokens = self
+            .tokens
+            .iter()
+            .map(|name| format_ident!("{}", name))
+            .collect::<Vec<_>>();
+
+        let nodes = self.nodes.iter().map(|node| format_ident!("{}", node));
+
         let ast = quote! {
             #![allow(bad_style, missing_docs, unreachable_pub)]
-            /// The kind of syntax node, e.g. `IDENT`, `USE_KW`, or `STRUCT`.
+            /// The kind of syntax node, e.g. Ident, `UseKw`, or `Struct`.
             #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
             #[repr(u16)]
             pub enum SyntaxKind {
@@ -79,6 +88,8 @@ impl KindsSrc {
                 #(#punctuation,)*
                 #(#keywords,)*
                 #(#literals,)*
+                #(#tokens,)*
+                #(#nodes,)*
                 // #(#tokens,)*
                 // #(#nodes,)*
 
@@ -87,11 +98,15 @@ impl KindsSrc {
                 __LAST,
             }
 
+            /// A helper macro to get the SyntaxKind
             #[macro_export]
             macro_rules! T {
                 #([#punctuation_matches] => { $crate::SyntaxKind::#punctuation };)*
                 #([#keyword_matches] => { $crate::SyntaxKind::#keywords};)*
                 #([#literal_matches] => { $crate::SyntaxKind::#literals};)*
+                [ident] => { $crate::SyntaxKind::Ident };
+                [__] => { $crate::SyntaxKind::Tombstone };
+                [eof] => { $crate::SyntaxKind::Eof };
             }
         };
 
@@ -113,4 +128,10 @@ pub fn to_camel_case(s: &str) -> String {
     buf.push(first.to_ascii_uppercase());
     buf.push_str(&s[idx + 1..]);
     buf
+}
+
+fn lingo_grammar() -> Result<Grammar> {
+    let grammar_path = utils::xtask_root().join("assets/lingo.ungram");
+    let src = fs::read_to_string(grammar_path)?;
+    Ok(src.parse()?)
 }
